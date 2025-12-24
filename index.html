@@ -6,9 +6,106 @@
     <title>sky Weather</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    ,<style>
+        .glass-nav {
+            /* 1. Semi-transparent background */
+            background: rgba(255, 255, 255, 0.1) !important;
 
+            /* 2. The blur effect (this creates the glass look) */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            /* For Safari support */
+
+            /* 3. Optional: Subtle border and shadow for depth */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand,
+        .nav-link {
+            color: white !important;
+        }
+         .logo-container {
+            text-decoration: none;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            /* Slightly smaller for navbar */
+            font-weight: 800;
+            color: #fff;
+            text-transform: lowercase;
+            line-height: 1;
+        }
+
+        .brand-sub {
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 2px;
+            display: block;
+        }
+
+        .logo-icon {
+            font-size: 1.4rem;
+            color: #fff;
+            position: relative;
+        }
+
+        .sun {
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(45deg, #ffce00, #ff8c00);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 206, 0, 0.8);
+        }
+
+        #mainBg {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            width: 100%;
+
+            /* This is your initial default image */
+            background-image: url('images/backgrounds/unnamed.jpg');
+
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            /* This makes the weather change look professional */
+            transition: background-image 0.8s ease-in-out;
+        }
+    </style>
 </head>
-<body>
+<body id="mainBg">
+    <nav class="navbar navbar-expand-lg glass-nav fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <div class="sun"></div>
+                        <i class="bi bi-cloud-fill"></i>
+                    </div>
+                    <div class="logo-text ms-2">
+                        <span class="brand-name">skys</span>
+                        <span class="brand-sub">WEATHER</span>
+                    </div>
+                </div>
+            </a>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2 bg-transparent text-white" id="userCity" type="search"
+                    placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-light" type="button"
+                    onclick="">
+                    Search
+                </button>
+            </form>
+        </div>
+    </nav>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
