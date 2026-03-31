@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sky Weather</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    ,<style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.1) !important;
+
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand,
+        .nav-link {
+            color: white !important;
+        }
+         .logo-container {
+            text-decoration: none;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+
+            font-weight: 800;
+            color: #fff;
+            text-transform: lowercase;
+            line-height: 1;
+        }
+
+        .brand-sub {
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 2px;
+            display: block;
+        }
+
+        .logo-icon {
+            font-size: 1.4rem;
+            color: #fff;
+            position: relative;
+        }
+
+        .sun {
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(45deg, #ffce00, #ff8c00);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 206, 0, 0.8);
+        }
+
+        #mainBg {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            width: 100%;
+
+            background-image: url('images/backgrounds/unnamed.jpg');
+
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+
+            transition: background-image 0.8s ease-in-out;
+        }
+        #tempDisplay {
+            font-size: clamp(5rem, 15vw, 10rem);
+
+            font-weight: 300;
+
+            line-height: 0.9;
+            letter-spacing: -2px;
+        }
+
+        #cityDisplay {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 500;
+        }
+
+        #countryDisplay {
+            font-size: 1.2rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+
+        .custom-glass-nav {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
+            width: 100%;
+            max-width: 500px;
+        }
+
+        #tempDisplay {
+            font-size: clamp(4rem, 12vw, 8rem);
+            font-weight: 200;
+            letter-spacing: -4px;
+        }
+
+        .glass-card-sm {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            min-width: 110px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .glass-card-sm:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+        }
+
+        .d-flex.flex-wrap {
+            justify-content: flex-start;
+        }
+
+        .forecast-wrapper {
+            display: grid;
+            gap: 15px;
+            width: 100%;
+            margin-top: 2rem;
+
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (min-width: 992px) {
+            .forecast-wrapper {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        .glass-card-sm {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        #tempDisplay {
+            font-size: clamp(5rem, 15vw, 10rem);
+            font-weight: 200;
+            line-height: 1;
+        }
+
+        #cityDisplay {
+            font-size: 1.5rem;
+        }
+
+        #countryDisplay {
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        .bg-glass {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white !important;
+        }
+
+        .bg-glass::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body id="mainBg">
+    <nav class="navbar navbar-expand-lg glass-nav fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <div class="sun"></div>
+                        <i class="bi bi-cloud-fill"></i>
+                    </div>
+                    <div class="logo-text ms-2">
+                        <span class="brand-name">skys</span>
+                        <span class="brand-sub">WEATHER</span>
+                    </div>
+                </div>
+            </a>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2 bg-transparent text-white" id="userCity" type="search"
+                    placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-light" type="button"
+                    onclick="">
+                    Search
+                </button>
+            </form>
+        </div>
+    </nav>
+
+     <div class="container-fluid d-flex flex-column justify-content-center min-vh-100 p-4 pt-5 mt-5">
+        <div class="glass-box p-4 p-md-5 w-auto">
+            <div class="weather-content">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-geo-alt-fill fs-4 text-white"></i>
+                    <h5 id="cityDisplay" class="m-0 text-white fw-bold"></h5>
+                    <p id="countryDisplay" class="m-0 text-white-50"></p>
+                </div>
+
+                <h1 id="tempDisplay" class="m-0 text-white">skys</h1>
+
+                <p id="conditionDisplay" class="fs-3 text-capitalize text-white-50">Weather</p>
+
+            </div>
+        </div>
+
+        <div class="forecast-grid mt-4">
+        </div>
+
+        <div class="container-fluid p-5 justify-content-center">
+            <div class="forecast-wrapper mt-4">
+                <div class="glass-card-sm hour-card" id="h0">
+                    <p class="time mb-0 small opacity-75"></p>
+                    <p class="date mb-2 small"></p>
+                    <img class="icon" src="" alt="" style="width: 40px;">
+                    <p class="temp fw-bold mb-0"></p>
+                </div>
+                <div class="glass-card-sm hour-card" id="h0">
+                    <p class="time mb-0 small opacity-75"></p>
+                    <p class="date mb-2 small"></p>
+                    <img class="icon" src="" alt="" style="width: 40px;">
+                    <p class="temp fw-bold mb-0"></p>
+                </div>
+               <div class="glass-card-sm hour-card" id="h0">
+                    <p class="time mb-0 small opacity-75"></p>
+                    <p class="date mb-2 small"></p>
+                    <img class="icon" src="" alt="" style="width: 40px;">
+                    <p class="temp fw-bold mb-0"></p>
+                </div>
+                <div class="glass-card-sm hour-card" id="h0">
+                    <p class="time mb-0 small opacity-75"></p>
+                    <p class="date mb-2 small"></p>
+                    <img class="icon" src="" alt="" style="width: 40px;">
+                    <p class="temp fw-bold mb-0"></p>
+                </div>
+                <div class="glass-card-sm hour-card" id="h0">
+                    <p class="time mb-0 small opacity-75"></p>
+                    <p class="date mb-2 small"></p>
+                    <img class="icon" src="" alt="" style="width: 40px;">
+                    <p class="temp fw-bold mb-0"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+</body>
+</html>
